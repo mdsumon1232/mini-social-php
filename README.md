@@ -32,3 +32,13 @@
     <li>Image</li>
     <li>Friend Request </li>
 </ol>
+
+
+color comb:
+
+// #0ebd60
+#cad1c9
+#184c34
+#eff4ed
+
+font: https://fonts.google.com/specimen/Rubik
