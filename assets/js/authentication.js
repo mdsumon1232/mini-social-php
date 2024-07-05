@@ -6,11 +6,11 @@ let show_confirm = document.getElementById('show_con');
 let hidden_confirm = document.getElementById('hidden_con');
 
 password.addEventListener('focus' , ()=>{
-    show.style = 'display:block';
+    show.style = 'display:block'; 
 
 })
 
-confirm_password.addEventListener('focus' , ()=>{
+confirm_password && confirm_password.addEventListener('focus' , ()=>{
     show_confirm.style='display:block';
 })
 
@@ -33,15 +33,15 @@ password.type = 'password';
 
 
 
-show_confirm.addEventListener('click' ,  ()=>{
+show_confirm && show_confirm.addEventListener('click' ,  ()=>{
   show_confirm.style = 'display:none';
   hidden_confirm.style = 'display:block';
-confirm_password.type = 'text';
+  confirm_password.type = 'text';
 
 })
 
 
-hidden_confirm.addEventListener('click' ,  ()=>{
+hidden_confirm && hidden_confirm.addEventListener('click' ,  ()=>{
   hidden_confirm.style = 'display:none';
   show_confirm.style = 'display:block';
 confirm_password.type = 'password';
