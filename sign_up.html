@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-      <form action="" class="form">
+      <form action="" class="form" id="form">
         <h2>Sign Up</h2>
         <div class="form-items">
           <label for="firstName">First Name</label>
@@ -48,6 +48,7 @@
             name="password"
             placeholder="Enter password"
             required
+            autocomplete="off"
           />
           <p id="show" class="show">show</p>
           <p id="hidden" class="hidden">Hidden</p>
@@ -60,9 +61,13 @@
             name="confirm_password"
             placeholder="Confirm password"
             required
+            autocomplete="off"
           />
           <p id="show_con" class="show">show</p>
           <p id="hidden_con" class="hidden">Hidden</p>
+        </div>
+        <div class="message">
+          <p id="messageBox"></p>
         </div>
         <input type="submit" value="Sign Up" name="signup" />
         <p class="account_status">
@@ -71,5 +76,6 @@
       </form>
     </div>
     <script src="./assets/js/authentication.js"></script>
+    <script src="./assets/js/validation.js"></script>
   </body>
 </html>

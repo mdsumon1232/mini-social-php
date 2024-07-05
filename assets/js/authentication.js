@@ -14,7 +14,6 @@ confirm_password && confirm_password.addEventListener('focus' , ()=>{
     show_confirm.style='display:block';
 })
 
-console.log(confirm_password);
 
 show.addEventListener('click' ,  ()=>{
   show.style = 'display:none';
