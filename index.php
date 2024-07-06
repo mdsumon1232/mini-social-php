@@ -1,3 +1,11 @@
+<?php
+ session_start();
+ if(!isset($_SESSION['user'])){
+    header('location:login.php');
+ }
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +29,21 @@
             <button class="toggle-button" onclick="toggleMenu()">☰</button>
         </div>
         <div class="menu" id="navbarMenu">
-            <a href="#home">Home</a>
-            <a href="#home">Write Post</a>
-            <a href="#profile">Profile</a>
-            <a href="#report">Report Us</a>
+           <ul>
+           <li><a href="#home">Home</a></li>
+            <li><a href="#home">Write Post</a></li>
+           <li>
+            <a href="#profile">Profile </a>
+            <ul class="profile_child">
+                <li><a href="profile.php">profile</a></li>
+                <li><a href="">setting</a></li>
+                <li><a href="">log out</a></li>
+               </ul>
+            
+</li>
+            <li><a href="#report">Report Us</a></li>
+           </ul>
+      
 
             <div class="search-container">
                 <input type="text" placeholder="Search..." class="search-bar">
