@@ -1,3 +1,25 @@
+<?php
+  
+  session_start();
+  $user = $first_name = $last_name = $bio = $profile = $cover = "";
+
+  if(isset($_SESSION['user'])){
+     $user = $_SESSION['user'];
+     $first_name = $user['first_name'];
+     $last_name = $user['last_name'];
+    $user['bio'] ? $bio = $user['bio'] : "";
+     $user['profile'] ?  $profile = $user['	profile'] : "" ;
+     $cover = $user['cover'];
+  }
+
+  else{
+    header('location:login.php');
+  }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,17 +32,17 @@
     <div class="container"> 
       <div class="top_header">
         <div class="cover">
-          <img src="./assets/images/images.jpg" alt="">
+          <img src="<?php  echo isset($cover) ? $cover : './assets/images/images.jpg' ; ?>" alt="">
         </div>
         <div class="profile_img">
-          <img src="./assets/images/dummy-author.png" alt="">
+          <img src="<?php  echo !empty($profile) ? $profile : './assets/images/dummy-author.png' ; ?>" alt="">
         </div>
      
       </div>
       <div class="profile_information">
-          <h2>User Name</h2>
-          <p>Bio</p>
-          <a href="">Edit profile</a>
+          <h2><?php echo $first_name . " " .$last_name  ?></h2>
+          <p><?php  echo !empty($bio) ? $bio : "BIO" ?></p>
+          <a href="./profile_update.php">Edit profile</a>
         </div>
         <hr>
       <div class="create-post">
