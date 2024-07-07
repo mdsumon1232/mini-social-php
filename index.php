@@ -1,7 +1,7 @@
 <?php
   require('./assets/php/connect.php');
  session_start();
- if(!isset($_SESSION['user'])){
+ if(empty($_SESSION['user'])){
     header('location:login.php');
  }
  
@@ -38,7 +38,7 @@
             <ul class="profile_child">
                 <li><a href="profile.php">profile</a></li>
                 <li><a href="">setting</a></li>
-                <li><a href="">log out</a></li>
+                <li><a href="logOut.php">log out</a></li>
                </ul>
             
 </li>
@@ -66,20 +66,39 @@
  
         $select_post = "SELECT * FROM post";
         $query = $conn->query($select_post);
-   
+        
+        // comment section
+ 
+        if(isset($_POST['submit'])){
+            $comment = $_POST['comment'];
+            $post_id = $_POST['post_id'];
+            $user_id = $_SESSION['user']['user_id'];
+
+           if(!empty($comment)){
+            $insert_data = "INSERT INTO comment (comment , post_id	, cmt_user_id)
+                            VALUES ('$comment' , '$post_id' , '$user_id') ";
+            $conn->query($insert_data);   
+        }
+            
+        }
+        
+
 
       while( $fetch = mysqli_fetch_array($query) ){
-      
+       $post_id = $fetch['post_id'];
       $article = $fetch['article'];
       $image = $fetch['image'];
       $user_id = $fetch['user_id']; 
       $post_at = $fetch['post_at'];
       $find_user = "SELECT* FROM user WHERE  user_id = '$user_id'";
+
       $user_query = $conn->query($find_user);
       $fetch_user = mysqli_fetch_array($user_query);
       $user_profile = $fetch_user['profile'];
       $first_name =  $fetch_user['first_name'];
       $last_name =  $fetch_user['last_name'];
+     
+
       $full_name = $first_name . " " . $last_name;
 
       $user_profile_image = isset($user_profile) && !empty($user_profile) ? $user_profile : './assets/images/dummy-author.png';
@@ -114,10 +133,11 @@
                   <img src='./assets/images/dummy-author.png' alt='Commenter Image'>
                   <div class='comment-text'>This is another example comment.</div>
               </div>
-              <div class='comment-input'>
-                  <input type='text' placeholder='Add a comment...'>
-                  <button>Add Comment</button>
-              </div>
+              <form class='comment-input' action='index.php'  method = 'post'>
+                  <input type='text' name='comment' placeholder='Add a comment...'>
+                  <input type='text' value='$post_id' name='post_id' hidden>
+                  <button type='submit' name='submit'>Add Comment</button>
+              </form>
           </div>
       </div>";
       }

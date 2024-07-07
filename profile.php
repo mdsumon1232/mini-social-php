@@ -8,11 +8,8 @@
   if(isset($_SESSION['user'])){
      $user = $_SESSION['user'];
      $user_id = $user['user_id'];
-     $bio = $user['bio'];
      $first_name = $user['first_name'];
      $last_name = $user['last_name'];
-     $cover = $user['cover'];
-     $profile = $user['profile'];
       
   }
 
@@ -30,6 +27,8 @@
 
   $folder = "./assets/images/". $image_name;
   
+  move_uploaded_file($tmp_name , $folder);
+
   $user_id = $_SESSION['user']['user_id'];
 
   if($image_name){
@@ -46,6 +45,19 @@
 
 
  }
+
+
+//  profile data display
+
+$select_profile_data = "SELECT * FROM user WHERE user_id = '$user_id'";
+$profile_query = $conn->query($select_profile_data);
+$fetch_profile = mysqli_fetch_array($profile_query);
+
+$profile = $fetch_profile['profile'];
+$cover = $fetch_profile['cover'];
+$bio = $fetch_profile['bio'];
+
+
 
 
 ?>
@@ -72,7 +84,7 @@
       <div class="profile_information">
           <h2><?php echo $first_name . " " .$last_name  ?></h2>
           <p><?php  echo !empty($bio) ? $bio : "BIO" ?></p>
-          <a href="<?php echo './profile_update.php?id='.$id ?>">Edit profile</a>
+          <a href="<?php echo './profile_update.php?id='.$user_id ?>">Edit profile</a>
         </div>
         <hr>
       <div class="create-post">

@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
   $query = $conn -> query($update_data);
    
   if($query){
-    echo "update successful";
+    header('location:profile.php?update=success');
   }
   else{
     echo "something wrong";
