@@ -24,10 +24,12 @@ body {
 }
 .cover {
   width: 100%;
+  height: 300px;
   position: relative;
 }
 .cover > img {
   width: 100%;
+  height: 100%;
 }
 
 .profile_img {
@@ -38,10 +40,11 @@ body {
   position: absolute;
   width: 200px;
   height: 200px;
+  overflow: hidden;
 }
-.profile_img > img {
+.profile_img img {
   width: 100%;
-  border-radius: 50%;
+  height: 100%;
 }
 .profile_information {
   width: 100%;
@@ -67,6 +70,29 @@ body {
 hr {
   border-bottom: 2px solid black;
   margin: 20px 0;
+}
+
+.file_container {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.field_name {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #fff;
+  padding: 10px 0;
+  width: 10%;
+  background-color: #218838;
+}
+.input_label {
+  width: 90%;
+  padding: 10px 0;
+  color: black;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #f4f6f6;
 }
 
 .create-post {

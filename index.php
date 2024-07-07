@@ -1,4 +1,5 @@
 <?php
+  require('./assets/php/connect.php');
  session_start();
  if(!isset($_SESSION['user'])){
     header('location:login.php');
@@ -60,143 +61,72 @@
 
         <div class="posts">
 
-            <div class="post">
-                <div class="post-header">
-                    <img src="./assets/images/dummy-author.png" alt="Author Image">
-                    <div>
-                        <div class="post-author">John Doe</div>
-                        <div class="post-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is an example of a post description. Here you can write anything you want to share with your followers.</p>
-                </div>
-                <div class="post-footer">
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is an example comment.</div>
-                    </div>
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is another example comment.</div>
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" placeholder="Add a comment...">
-                        <button>Add Comment</button>
-                    </div>
-                </div>
-            </div>
+
+     <?php 
+ 
+        $select_post = "SELECT * FROM post";
+        $query = $conn->query($select_post);
+   
+
+      while( $fetch = mysqli_fetch_array($query) ){
+      
+      $article = $fetch['article'];
+      $image = $fetch['image'];
+      $user_id = $fetch['user_id']; 
+      $post_at = $fetch['post_at'];
+      $find_user = "SELECT* FROM user WHERE  user_id = '$user_id'";
+      $user_query = $conn->query($find_user);
+      $fetch_user = mysqli_fetch_array($user_query);
+      $user_profile = $fetch_user['profile'];
+      $first_name =  $fetch_user['first_name'];
+      $last_name =  $fetch_user['last_name'];
+      $full_name = $first_name . " " . $last_name;
+
+      $user_profile_image = isset($user_profile) && !empty($user_profile) ? $user_profile : './assets/images/dummy-author.png';
+    
+      $post_date = date_create($post_at);
+      $date_of_post =  date_format($post_date,"d M Y ");
 
 
-            <div class="post">
-                <div class="post-header">
-                    <img src="./assets/images/dummy-author.png" alt="Author Image">
-                    <div>
-                        <div class="post-author">John Doe</div>
-                        <div class="post-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is an example of a post description. Here you can write anything you want to share with your followers.</p>
-                </div>
-                <div class="post-footer">
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is an example comment.</div>
-                    </div>
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is another example comment.</div>
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" placeholder="Add a comment...">
-                        <button>Add Comment</button>
-                    </div>
-                </div>
-            </div>
+      echo "
+      <div class='post'>
+          <div class='post-header'>
+          <img src='$user_profile_image' alt=''>
+            <div>
+                  <div class='post-author'>$full_name</div>
+                  <div class='post-time'> $date_of_post </div>
+              </div>
+          </div>
+          <div class='post-content'>
+              <p>{$article}</p>
+              <div class='photo'>";
+      if (isset($fetch['image'])) {
+          echo "<img src='{$fetch['image']}' alt='post'>";
+      }
+      echo "</div>
+          </div>
+          <div class='post-footer'>
+              <div class='comment'>
+                  <img src='./assets/images/dummy-author.png' alt='Commenter Image'>
+                  <div class='comment-text'>This is an example comment.</div>
+              </div>
+              <div class='comment'>
+                  <img src='./assets/images/dummy-author.png' alt='Commenter Image'>
+                  <div class='comment-text'>This is another example comment.</div>
+              </div>
+              <div class='comment-input'>
+                  <input type='text' placeholder='Add a comment...'>
+                  <button>Add Comment</button>
+              </div>
+          </div>
+      </div>";
+      }
 
-            <div class="post">
-                <div class="post-header">
-                    <img src="./assets/images/dummy-author.png" alt="Author Image">
-                    <div>
-                        <div class="post-author">John Doe</div>
-                        <div class="post-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is an example of a post description. Here you can write anything you want to share with your followers.</p>
-                </div>
-                <div class="post-footer">
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is an example comment.</div>
-                    </div>
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is another example comment.</div>
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" placeholder="Add a comment...">
-                        <button>Add Comment</button>
-                    </div>
-                </div>
-            </div>
+          
+     ?>
+         
 
-            <div class="post">
-                <div class="post-header">
-                    <img src="./assets/images/dummy-author.png" alt="Author Image">
-                    <div>
-                        <div class="post-author">John Doe</div>
-                        <div class="post-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is an example of a post description. Here you can write anything you want to share with your followers.</p>
-                </div>
-                <div class="post-footer">
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is an example comment.</div>
-                    </div>
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is another example comment.</div>
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" placeholder="Add a comment...">
-                        <button>Add Comment</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <img src="./assets/images/dummy-author.png" alt="Author Image">
-                    <div>
-                        <div class="post-author">John Doe</div>
-                        <div class="post-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <p>This is an example of a post description. Here you can write anything you want to share with your followers.</p>
-                </div>
-                <div class="post-footer">
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is an example comment.</div>
-                    </div>
-                    <div class="comment">
-                        <img src="./assets/images/dummy-author.png" alt="Commenter Image">
-                        <div class="comment-text">This is another example comment.</div>
-                    </div>
-                    <div class="comment-input">
-                        <input type="text" placeholder="Add a comment...">
-                        <button>Add Comment</button>
-                    </div>
-                </div>
-            </div>
-
-            
+           
 
         </div>
 
